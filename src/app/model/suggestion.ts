@@ -1,9 +1,9 @@
 export class Suggestion {
-    id!: string;
+    id!: string | number;
     title!: string;
     description!: string;
-    director!: string;
     date!: Date;
     status!: string;
     nbLikes!: number;
+    category!: string;
 }
