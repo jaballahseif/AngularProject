@@ -2,11 +2,11 @@
   <h1 class="page-title">Liste des suggestions</h1>
 
   <div class="search-container">
-    <input type="text" class="search-input" [placeholder]="placeholder">
+    <input type="text" class="search-input" [placeholder]="placeholder" [(ngModel)]="searchTerm" (input)="filterSuggestions()">
   </div>
 
   <div class="suggestions-list">
-    <div class="suggestion-card" *ngFor="let s of suggestions">
+    <div class="suggestion-card" *ngFor="let s of filteredSuggestions">
       <div class="card-header">
         <h2 class="suggestion-title">{{s.title}}</h2>
       </div>
@@ -27,8 +27,8 @@
             {{s.status}}
         </span>
 
-        <div class="action-buttons">
-          <button class="btn-like">
+        <div class="action-buttons" *ngIf="s.status !== 'refusee'">
+          <button class="btn-like" (click)="incrementLikes(s)">
             <span class="icon">👍</span>
            {{s.nbLikes}}
           </button>

@@ -48,12 +48,38 @@ export class ListSuggestionsComponent implements OnInit {
         },
     ];
 
+    favoris: Suggestion[] = [];
+
     addToFavoris(s: Suggestion) {
-        alert('Ajouté aux favoris : ' + s.title);
+        if (!this.favoris.includes(s)) {
+            this.favoris.push(s);
+            console.log('Favoris:', this.favoris);
+        }
     }
+
+    incrementLikes(s: Suggestion) {
+        s.nbLikes++;
+    }
+
+    filteredSuggestions: Suggestion[] = [];
+    searchTerm: string = '';
+
+    filterSuggestions() {
+        if (!this.searchTerm) {
+            this.filteredSuggestions = this.suggestions;
+        } else {
+            const term = this.searchTerm.toLowerCase();
+            this.filteredSuggestions = this.suggestions.filter(s =>
+                s.title.toLowerCase().includes(term) ||
+                s.category.toLowerCase().includes(term)
+            );
+        }
+    }
+
     constructor() { }
 
     ngOnInit(): void {
+        this.filteredSuggestions = this.suggestions;
     }
 
 }
